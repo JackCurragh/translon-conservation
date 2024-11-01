@@ -1,0 +1,3 @@
+chrom	chromStart	chromEnd	name	score	strand	thickStart	thickEnd	itemRgb	blockCount	blockSizes	blockStarts	transcript_id	region_length	strand_cds	gene_name	cds_frame	cds_end_pos	matched_frame_score	max_frame_score	start_region_score	window_max_score	phylop_mean	extension_frame	extension_length	genome_coords
+2	131264683	131264902	ENST00000683005_1	219	+	131264683	131264902	0	1	219	0	ENST00000683005	219	+	POTEE	0	131264680	NaN	NaN	NaN	NaN	2.902127865876271	1	219	2:131264683-131264902
+2	219271699	219271897	ENST00000490341_1	198	+	219271699	219271897	0	1	198	0	ENST00000490341	198	+	TUBA4B	0	219271696	22.446939284753316	22.446939284753316	35.354733022054035	32.995600032806394	3.562641385735737	1	198	2:219271699-219271897
