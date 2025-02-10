@@ -26,3 +26,8 @@ results/figures/*
 results/tables/*
 !results/figures/.gitkeep
 !results/tables/.gitkeep
+PhyloP/
+results/ 
+data/backup_raw
+results/
+src/
