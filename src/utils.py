@@ -13,7 +13,16 @@ from typing import Dict, List, Optional, Tuple
 class ConservationTracker:
     """Handles loading and management of PhyloCSF and PhyloP tracks."""
 
-    def __init__(self, phylocsf_dir: Path, phylop_path: Path):
+    def __init__(self, phylocsf_dir: Path, phylop_path: Path, phylocsf_type: str = "Raw"):
+        """
+        Initialize conservation tracker.
+        
+        Args:
+            phylocsf_dir: Directory containing PhyloCSF bigwig files
+            phylop_path: Path to PhyloP bigwig file
+            phylocsf_type: Type of PhyloCSF scores to use ("Raw" or "Smooth")
+        """
+        self.phylocsf_type = phylocsf_type
         self.phylocsf_tracks = self._load_phylocsf_tracks(phylocsf_dir)
         self.phylop_track = self._load_phylop_track(phylop_path)
 
@@ -23,7 +32,7 @@ class ConservationTracker:
         for frame in [1, 2, 3]:
             for strand in ['+', '-']:
                 sign = 'plus' if strand == '+' else 'minus'
-                filename = f"PhyloCSFRaw_{sign}{frame}.bw"
+                filename = f"PhyloCSF{self.phylocsf_type}_{sign}{frame}.bw"
                 filepath = phylocsf_dir / filename
                 if filepath.exists():
                     tracks[f"{strand}{frame}"] = pyBigWig.open(str(filepath))
