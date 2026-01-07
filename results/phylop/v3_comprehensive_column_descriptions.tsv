@@ -1,0 +1,34 @@
+column_name	description	value_type	notes
+translon_id	Unique identifier for the translon	string	Format: c{chrom}norep{n} or c{chrom}riboseqorf{n}
+chrom	Chromosome name	string	chr1-chr22, chrX, chrY, chrM
+start	Genomic start position (0-based)	integer	BED format convention
+end	Genomic end position (exclusive)	integer	BED format convention
+strand	Genomic strand	string	+ or -
+transcript_id	GENCODE transcript ID containing this translon	string	"ENST format; ""no_annotation"" if not mapped"
+exonic_length	Total length of all exonic sequence (bp)	integer	Sum of all block sizes
+blockCount	Number of exons/blocks in the translon	integer	1 = single exon, >1 = spliced
+flank_size	Size of flanking regions analyzed (bp)	integer	150bp of exonic sequence extracted (transcript-aware, skips introns)
+flank_type	Type of flanking region extraction used	string	"""exonic"" = walks along transcript exons, skips introns"
+feature_n_bases	Number of bases with PhyloP scores in feature	integer	May be less than exonic_length if some positions lack scores
+feature_mean	Mean PhyloP score across translon	float	Positive = conserved, negative = depleted, ~0 = neutral
+feature_median	Median PhyloP score across translon	float	More robust to outliers than mean
+feature_std	Standard deviation of PhyloP scores	float	Measures variation in conservation across feature
+feature_min	Minimum PhyloP score in translon	float	Most depleted position
+feature_max	Maximum PhyloP score in translon	float	Most conserved position
+upstream_n_bases	Number of bases with PhyloP scores upstream	integer	From exonic sequence walking along transcript (skips introns)
+upstream_mean	Mean PhyloP score in upstream exonic flank	float	Conservation in 150bp exonic sequence before translon
+upstream_median	Median PhyloP score in upstream exonic flank	float	
+upstream_std	Standard deviation in upstream exonic flank	float	
+upstream_min	Minimum PhyloP score in upstream exonic flank	float	
+upstream_max	Maximum PhyloP score in upstream exonic flank	float	
+downstream_n_bases	Number of bases with PhyloP scores downstream	integer	From exonic sequence walking along transcript (skips introns)
+downstream_mean	Mean PhyloP score in downstream exonic flank	float	Conservation in 150bp exonic sequence after translon
+downstream_median	Median PhyloP score in downstream exonic flank	float	
+downstream_std	Standard deviation in downstream exonic flank	float	
+downstream_min	Minimum PhyloP score in downstream exonic flank	float	
+downstream_max	Maximum PhyloP score in downstream exonic flank	float	
+conservation_specificity	Difference: feature_mean - max(upstream_mean, downstream_mean)	float	Positive = feature more conserved than both flanks; key metric for restricted conservation
+has_cds_overlap	Boolean flag for CDS overlap	boolean	True if translon overlaps annotated protein-coding CDS
+same_strand	Is overlapping CDS on same strand?	boolean	Only meaningful if has_cds_overlap=True
+cds_overlap_proportion	Proportion of translon overlapping CDS	float	Range 0.0-1.0; fraction of translon bases overlapping protein-coding sequence
+overlapping_genes	Comma-separated list of overlapping gene names	string	"""-1"" means no overlap (PyRanges sentinel value)"

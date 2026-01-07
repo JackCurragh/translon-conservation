@@ -1,0 +1,15 @@
+column_name	description	interpretation	key_for_story
+translon_id	Unique identifier for the translon	Format: c{chrom}norep{n} or c{chrom}riboseqorf{n}	Identifier for tracking specific candidates
+chrom	Chromosome name	chr1-chr22, chrX, chrY	Genomic location
+start	Genomic start position (0-based)	BED format convention	Genomic location
+end	Genomic end position (exclusive)	BED format convention	Genomic location
+exonic_length	Total exonic sequence length in bp	Sum of all exon blocks	Size of the translon feature
+blockCount	Number of exons in the translon	1 = single exon, >1 = spliced multi-exon	Structure complexity
+feature_mean	Mean PhyloP conservation score across translon	>1.5 = strong conservation, 0.5-1.5 = moderate, -0.5 to 0.5 = neutral, <-0.5 = depleted	PRIMARY: Measures how conserved the translon is
+upstream_mean	Mean PhyloP score in 150bp upstream EXONIC flank	Conservation in exonic sequence before translon (walks along transcript exons, skips introns)	Used to assess if conservation is regional or restricted
+downstream_mean	Mean PhyloP score in 150bp downstream EXONIC flank	Conservation in exonic sequence after translon (walks along transcript exons, skips introns)	Used to assess if conservation is regional or restricted
+conservation_specificity	feature_mean - max(upstream_mean, downstream_mean)	>0 = feature more conserved than both flanks; larger values = more specific conservation	KEY METRIC: High specificity with low flanks (≤1.0) = restricted conservation
+has_cds_overlap	Does translon overlap protein-coding CDS?	True = overlaps known gene (conservation likely explained), False = independent of CDS	Filters out translons where conservation is from overlapping genes
+cds_overlap_proportion	Proportion of translon overlapping CDS	0.0-1.0; proportion of translon bases that overlap protein-coding sequence	Quantifies extent of CDS overlap
+overlapping_genes	Names of overlapping genes (if any)	"Comma-separated gene names, or ""-1"" if no overlap"	Identifies which genes explain conservation (if has_cds_overlap=True)
+category	Classification for storytelling	"""restricted_conservation"" (top 42) or ""other"" (remaining 7,222)"	STORY: The 42 restricted_conservation translons are high-confidence novel candidates
